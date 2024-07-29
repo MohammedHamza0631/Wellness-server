@@ -59,30 +59,6 @@ const searchRetreats = async (req, res) => {
   }
 };
 
-// const searchRetreats = async (req, res) => {
-//   const { search, page = 1, limit = 5 } = req.query;
-//   const offset = (page - 1) * limit;
-
-//   try {
-//     const [retreats, totalCount] = await Promise.all([
-//       pool.query(
-//         "SELECT * FROM retreats WHERE title ILIKE $1 ORDER BY date DESC LIMIT $2 OFFSET $3",
-//         [`%${search}%`, limit, offset]
-//       ),
-//       pool.query("SELECT COUNT(*) FROM retreats WHERE title ILIKE $1", [
-//         `%${search}%`,
-//       ]),
-//     ]);
-
-//     res.json({
-//       retreats: retreats.rows,
-//       totalPages: Math.ceil(totalCount.rows[0].count / limit),
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: "Internal Server Error" });
-//   }
-// };
-
 module.exports = {
   getRetreats,
   searchRetreats,

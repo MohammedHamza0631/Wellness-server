@@ -38,6 +38,9 @@ app.use("/api/auth", require("./routes/authRoutes"));
 // Get all retreats
 app.use("/api/retreats", require("./routes/retreatRoutes"));
 
+// Booking Routes
+app.use("/api/book", require("./routes/bookingRoutes"));
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
