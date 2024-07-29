@@ -32,9 +32,11 @@ app.get("/healthz", (req, res) => {
   res.status(200).json("Systems up & running");
 });
 
-// Routes
+// Register/ Login User
+app.use("/api/auth", require("./routes/authRoutes"));
+
 // Get all retreats
-app.use("/api/retreats" , require("./routes/retreatRoutes"));
+app.use("/api/retreats", require("./routes/retreatRoutes"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
