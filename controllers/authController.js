@@ -41,7 +41,7 @@ exports.loginUser = async (req, res) => {
     ]);
 
     if (user.rows.length === 0) {
-      return res.status(401).json({ message: "USER DNE! Create One" });
+      return res.status(401).json({ message: "No User Exists! Create One" });
     }
 
     // Check if password is correct
