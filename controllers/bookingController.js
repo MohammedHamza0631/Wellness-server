@@ -44,8 +44,12 @@ exports.bookRetreat = async (req, res) => {
       duration: retreat_duration,
     } = retreat.rows[0];
 
-    const newBooking = await client.query(
-      "INSERT INTO bookings (user_id, user_name, user_email, user_phone, retreat_id, retreat_title, retreat_location, retreat_price, retreat_duration, payment_details, booking_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *",
+    const newBookingResult = await client.query(
+      `INSERT INTO bookings (user_id, user_name, user_email, user_phone, 
+        retreat_id, retreat_title, retreat_location, retreat_price, 
+        retreat_duration, payment_details, booking_date, version) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 0) 
+        RETURNING *`,
       [
         user_id,
         user_name,
@@ -60,8 +64,9 @@ exports.bookRetreat = async (req, res) => {
         booking_date,
       ]
     );
+
     await client.query("COMMIT");
-    res.status(201).json(newBooking.rows[0]);
+    res.status(201).json(newBookingResult.rows[0]);
   } catch (err) {
     await client.query("ROLLBACK");
     console.error(err.message);
